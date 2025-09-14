@@ -1,0 +1,37 @@
+# GearForge Ninja build script
+# Usage: ninja -f build.ninja
+
+# Compiler (override with `ninja -f build.ninja CC=clang++`)
+CC = g++
+
+# Flags
+cflags = -std=c++11 -Wall -Iinclude
+ldflags = -lglog
+test_ldflags = -lgtest -lgtest_main -pthread
+
+# Rules
+rule cxx
+  command = $CC $cflags -c $in -o $out
+
+rule link
+  command = $CC $in -o $out $ldflags
+
+rule link_tests
+  command = $CC $in -o $out $test_ldflags $ldflags
+
+# Build object files
+build build/main.o: cxx src/main.cpp
+build build/gear_calculator.o: cxx src/gear_calculator.cpp
+build build/ui.o: cxx src/ui.cpp
+build build/user_manager.o: cxx src/user_manager.cpp
+build build/utils.o: cxx src/utils.cpp
+build build/tests/main_test.o: cxx tests/main_test.cpp
+
+# Link main program
+build build/gearforge: link build/main.o build/gear_calculator.o build/ui.o build/user_manager.o build/utils.o
+
+# Link tests
+build build/tests: link_tests build/tests/main_test.o build/gear_calculator.o build/utils.o build/user_manager.o
+
+# Default target
+default build/gearforge build/tests
