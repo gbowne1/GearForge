@@ -26,16 +26,27 @@ While you can compile this with other build systems and compilers, these depende
 This requires CMake 3.10 or newer.
 
 Fedora: install cmake, glog, glog-devel, gtest
+
 Arch: install gtest, google-glog, cmake
-Redhat: <tbd>
+
+Redhat:
+
 Debian: install cmake, libgoogle-glog-dev, libgtest-dev
+
 Ubuntu: install cmake, libgoogle-glog-dev, libgtest-dev
+
 FreeBSD: install googletest, glog, cmake, 
+
 Alpine: install cmake, glog, gtest
+
 Gentoo: install dev-cpp/glog, dev-cpp/gtest, dev-build/cmake
+
 NixOS: install cmake, 
-Solaris: <tbd>
+
+Solaris:
+
 Windows: Use winget. Kitware.CMake, 
+
 MacOSX: 
 
 To build GearForge as gearforge
