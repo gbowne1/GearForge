@@ -9,7 +9,7 @@ set -e
 CC=${CC:-g++}
 
 # Flags
-CXXFLAGS="-std=c++11 -Wall -Iinclude"
+CXXFLAGS="-std=c++17 -Wall -Werror -Wpedantic -pedantic -pedantic-errors -Iinclude"
 LDFLAGS="-lglog"
 
 # Sources
