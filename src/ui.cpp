@@ -161,16 +161,23 @@ void Ui::handle_error(const std::string& msg) {
 }
 
 int Ui::select_menu(const std::vector<std::string>& options) {
-    int selected = 0;
+    int selected = 0; // Stays int because the function returns int
     while (true) {
         std::cout << utils::CLEAR_SCREEN;
-        for (int i = 0; i < options.size(); ++i) {
-            if (i == selected) std::cout << utils::INVERSE_ON;
+
+        // FIX: Use size_t for the loop counter 'i'
+        for (size_t i = 0; i < options.size(); ++i) { 
+            // FIX: Cast 'i' to int for comparison with 'selected'
+            if (static_cast<int>(i) == selected) std::cout << utils::INVERSE_ON;
             std::cout << "> " << options[i] << utils::INVERSE_OFF << std::endl;
         }
+        
         char key = utils::get_key();
         if (key == 'w' || key == 'i') selected = std::max(0, selected - 1);
+
+        // FIX: Cast options.size() for comparison with 'selected'
         else if (key == 's' || key == 'k') selected = std::min(static_cast<int>(options.size()) - 1, selected + 1);
+
         else if (key == '\n' || key == '\r') return selected;
     }
 }
