@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <filesystem>
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>  // But not used here; for tests
+#include <gtest/gtest.h>
 
 #include "gear_calculator.h"
 #include "ui.h"
