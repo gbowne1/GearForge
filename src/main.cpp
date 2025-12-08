@@ -3,6 +3,7 @@
 #include <vector>
 #include <filesystem>
 
+#include <gflags/gflags.h>
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 
@@ -14,6 +15,9 @@
 using namespace gearforge;
 
 int main(int argc, char** argv) {
+    
+    google::ParseCommandLineFlags(&argc, &argv, true);
+    
     google::InitGoogleLogging(argv[0]);
 
     // Command-line flags
