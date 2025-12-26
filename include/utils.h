@@ -86,6 +86,8 @@ std::string current_date();
 
 // Other reusables...
 double safe_stod(const std::string& str);
+double safe_stod_or(const std::string& str, const double default_value);
+double input_double_or(const std::string& str, const double default_value);
 
 }  // namespace utils
 }  // namespace gearforge

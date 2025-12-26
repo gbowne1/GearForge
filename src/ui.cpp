@@ -129,10 +129,20 @@ GearParams Ui::input_gear_params() {
     std::string input;
     std::cout << "Number of teeth (N): "; std::getline(std::cin, input);
     if (!input.empty()) p.n = std::stoi(input);
-    // Repeat for others with safe_stod...
-    std::cout << "Diametrical Pitch (DP): "; std::getline(std::cin, input);
-    if (!input.empty()) p.dp = utils::safe_stod(input);
-    // ... and so on for all fields
+   
+    p.dp = utils::input_double_or("Diametrical Pitch (DP): ", NAN); 
+    p.m  = utils::input_double_or("Module (metric): ", NAN);
+    p.pd = utils::input_double_or("Pitch Diameter: ", NAN);
+    p.od = utils::input_double_or("Outside Diameter: ", NAN);
+    p.rd = utils::input_double_or("Root Diameter: ", NAN);
+    p.a  = utils::input_double_or("Addendum: ", NAN);
+    p.d  = utils::input_double_or("Dedendum: ", NAN);
+    p.wd = utils::input_double_or("Whole Depth: ", NAN);
+    p.cp = utils::input_double_or("Circular Pitch: ", NAN);
+    p.pa = utils::input_double_or("Pressure Angle (degrees): ", NAN);
+    p.cd = utils::input_double_or("Center Distance (for pair): ", NAN);
+    p.backlash = utils::input_double_or("Backlash: ", NAN);
+
     return p;
 }
 
