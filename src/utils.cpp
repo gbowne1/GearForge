@@ -111,5 +111,22 @@ double safe_stod(const std::string& str) {
     }
 }
 
+double safe_stod_or(const std::string& str, const double default_value) {
+    try {
+        return std::stod(str);
+    } catch (const std::invalid_argument&) {
+        return default_value;
+    } catch (const std::out_of_range&) {
+        return default_value;
+    }
+}
+
+double input_double_or(const std::string& prompt, const double default_value) {
+    std::cout << prompt;
+    std::string input;
+    std::getline(std::cin, input);
+    return utils::safe_stod_or(input, default_value);
+}
+
 }  // namespace utils
 }  // namespace gearforge

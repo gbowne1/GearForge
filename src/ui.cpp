@@ -129,42 +129,19 @@ GearParams Ui::input_gear_params() {
     std::string input;
     std::cout << "Number of teeth (N): "; std::getline(std::cin, input);
     if (!input.empty()) p.n = std::stoi(input);
-    
-    std::cout << "Diametrical Pitch (DP): "; std::getline(std::cin, input);
-    if (!input.empty()) p.dp = utils::safe_stod(input);
-
-    std::cout << "Module (metric): "; std::getline(std::cin, input);
-    if (!input.empty()) p.m = utils::safe_stod(input);
-
-    std::cout << "Pitch Diameter: "; std::getline(std::cin, input);
-    if (!input.empty()) p.pd = utils::safe_stod(input);
-
-    std::cout << "Outside Diameter: "; std::getline(std::cin, input);
-    if (!input.empty()) p.od = utils::safe_stod(input);
-
-    std::cout << "Root Diameter: "; std::getline(std::cin, input);
-    if (!input.empty()) p.rd = utils::safe_stod(input);
-
-    std::cout << "Addendum: "; std::getline(std::cin, input);
-    if (!input.empty()) p.a = utils::safe_stod(input);
-
-    std::cout << "Dedendum: "; std::getline(std::cin, input);
-    if (!input.empty()) p.d = utils::safe_stod(input);
-
-    std::cout << "Whole Depth: "; std::getline(std::cin, input);
-    if (!input.empty()) p.wd = utils::safe_stod(input);
-
-    std::cout << "Circular Pitch: "; std::getline(std::cin, input);
-    if (!input.empty()) p.cp = utils::safe_stod(input);
-
-    std::cout << "Pressure Angle (degrees): "; std::getline(std::cin, input);
-    if (!input.empty()) p.pa = utils::safe_stod(input);
-
-    std::cout << "Center Distance (for pair): "; std::getline(std::cin, input);
-    if (!input.empty()) p.cd = utils::safe_stod(input);
-
-    std::cout << "Backlash: "; std::getline(std::cin, input);
-    if (!input.empty()) p.backlash = utils::safe_stod(input);
+   
+    p.dp = utils::input_double_or("Diametrical Pitch (DP): ", NAN); 
+    p.m  = utils::input_double_or("Module (metric): ", NAN);
+    p.pd = utils::input_double_or("Pitch Diameter: ", NAN);
+    p.od = utils::input_double_or("Outside Diameter: ", NAN);
+    p.rd = utils::input_double_or("Root Diameter: ", NAN);
+    p.a  = utils::input_double_or("Addendum: ", NAN);
+    p.d  = utils::input_double_or("Dedendum: ", NAN);
+    p.wd = utils::input_double_or("Whole Depth: ", NAN);
+    p.cp = utils::input_double_or("Circular Pitch: ", NAN);
+    p.pa = utils::input_double_or("Pressure Angle (degrees): ", NAN);
+    p.cd = utils::input_double_or("Center Distance (for pair): ", NAN);
+    p.backlash = utils::input_double_or("Backlash: ", NAN);
 
     return p;
 }
