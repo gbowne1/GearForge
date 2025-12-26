@@ -133,37 +133,37 @@ GearParams Ui::input_gear_params() {
     std::cout << "Diametrical Pitch (DP): "; std::getline(std::cin, input);
     if (!input.empty()) p.dp = utils::safe_stod(input);
 
-    std::cout << "Module (metric)"; std::getline(std::cin, input);
+    std::cout << "Module (metric): "; std::getline(std::cin, input);
     if (!input.empty()) p.m = utils::safe_stod(input);
 
-    std::cout << "Pitch Diameter"; std::getline(std::cin, input);
+    std::cout << "Pitch Diameter: "; std::getline(std::cin, input);
     if (!input.empty()) p.pd = utils::safe_stod(input);
 
-    std::cout << "Outside Diameter"; std::getline(std::cin, input);
+    std::cout << "Outside Diameter: "; std::getline(std::cin, input);
     if (!input.empty()) p.od = utils::safe_stod(input);
 
-    std::cout << "Root Diameter"; std::getline(std::cin, input);
+    std::cout << "Root Diameter: "; std::getline(std::cin, input);
     if (!input.empty()) p.rd = utils::safe_stod(input);
 
-    std::cout << "Addendum"; std::getline(std::cin, input);
+    std::cout << "Addendum: "; std::getline(std::cin, input);
     if (!input.empty()) p.a = utils::safe_stod(input);
 
-    std::cout << "Dedendum"; std::getline(std::cin, input);
+    std::cout << "Dedendum: "; std::getline(std::cin, input);
     if (!input.empty()) p.d = utils::safe_stod(input);
 
-    std::cout << "Whole Depth"; std::getline(std::cin, input);
+    std::cout << "Whole Depth: "; std::getline(std::cin, input);
     if (!input.empty()) p.wd = utils::safe_stod(input);
 
-    std::cout << "Circular Pitch"; std::getline(std::cin, input);
+    std::cout << "Circular Pitch: "; std::getline(std::cin, input);
     if (!input.empty()) p.cp = utils::safe_stod(input);
 
-    std::cout << "Pressure Angle (degrees)"; std::getline(std::cin, input);
+    std::cout << "Pressure Angle (degrees): "; std::getline(std::cin, input);
     if (!input.empty()) p.pa = utils::safe_stod(input);
 
-    std::cout << "Center Distance (for pair)"; std::getline(std::cin, input);
+    std::cout << "Center Distance (for pair): "; std::getline(std::cin, input);
     if (!input.empty()) p.cd = utils::safe_stod(input);
 
-    std::cout << "Backlash"; std::getline(std::cin, input);
+    std::cout << "Backlash: "; std::getline(std::cin, input);
     if (!input.empty()) p.backlash = utils::safe_stod(input);
 
     return p;
