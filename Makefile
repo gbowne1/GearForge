@@ -3,8 +3,8 @@ CXXFLAGS = -std=c++17 -Wall -Iinclude
 LDFLAGS = -lglog -lgflags
 TEST_LDFLAGS = -lgtest -lgtest_main -pthread
 
-SOURCES = src/main.cpp src/gear_calculator.cpp src/ui.cpp src/user_manager.cpp src/utils.cpp
-TEST_SOURCES = tests/main_test.cpp src/gear_calculator.cpp src/utils.cpp src/user_manager.cpp
+SOURCES = src/main.cpp src/gear_calculator.cpp src/ui.cpp src/user_manager.cpp src/settings_manager.cpp src/utils.cpp
+TEST_SOURCES = tests/main_test.cpp src/gear_calculator.cpp src/utils.cpp src/user_manager.cpp src/settings_manager.cpp 
 OBJECTS = $(SOURCES:.cpp=.o)
 TEST_OBJECTS = $(TEST_SOURCES:.cpp=.o)
 
