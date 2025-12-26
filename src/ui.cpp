@@ -11,13 +11,13 @@ void Ui::draw_box(const std::string& title, const std::vector<std::string>& line
     for (size_t i = 0; i < max_len - 2; ++i) std::cout << utils::BOX_HORIZONTAL;
     std::cout << utils::BOX_TOP_RIGHT << utils::COLOR_RESET << std::endl;
 
-    std::cout << utils::COLOR_BLUE << utils::BOX_VERTICAL << utils::COLOR_RESET << " " << title << " ";
+    std::cout << utils::COLOR_BLUE << utils::BOX_VERTICAL << utils::COLOR_RESET << " " << title;
     for (size_t i = title.length() + 2; i < max_len - 1; ++i) std::cout << " ";
     std::cout << utils::COLOR_BLUE << utils::BOX_VERTICAL << utils::COLOR_RESET << std::endl;
 
     for (const auto& line : lines) {
         std::cout << utils::COLOR_BLUE << utils::BOX_VERTICAL << utils::COLOR_RESET << " " << line;
-        for (size_t i = line.length() + 1; i < max_len - 1; ++i) std::cout << " ";
+        for (size_t i = line.length() + 2; i < max_len - 1; ++i) std::cout << " ";
         std::cout << utils::COLOR_BLUE << utils::BOX_VERTICAL << utils::COLOR_RESET << std::endl;
     }
 
