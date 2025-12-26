@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Iinclude
-LDFLAGS = -lglog
+LDFLAGS = -lglog -lgflags
 TEST_LDFLAGS = -lgtest -lgtest_main -pthread
 
 SOURCES = src/main.cpp src/gear_calculator.cpp src/ui.cpp src/user_manager.cpp src/utils.cpp
