@@ -10,6 +10,7 @@
 #include "gear_calculator.h"
 #include "ui.h"
 #include "user_manager.h"
+#include "settings_manager.h"
 #include "utils.h"
 
 using namespace gearforge;
@@ -38,7 +39,8 @@ int main(int argc, char** argv) {
     std::filesystem::create_directory("data");
 
     UserManager um;
-    Ui ui(um);
+    SettingsManager sm;
+    Ui ui(um, sm);
     ui.run();
 
     return 0;

@@ -34,6 +34,10 @@ void Ui::show_main_screen() {
 }
 
 bool Ui::show_login_register() {
+    if (settings_manager.data.count("single_user") > 0 && settings_manager.data["single_user"] == "true") {
+        return true;
+    }
+
     std::cout << utils::CLEAR_SCREEN;
     int choice = select_menu({"Login", "Register", "Exit"});
     if (choice == 2) return false;
@@ -117,7 +121,25 @@ void Ui::show_main_menu() {
 
 void Ui::show_settings() {
     // TODO: Implement settings menu (e.g., change colors, but fixed for now)
-    draw_box("Settings", {"No customizable settings yet."});
+    std::vector<std::string> ls;
+    ls.push_back("");
+    if (settings_manager.data.empty()) {
+        ls.push_back("None");
+    } else {
+        for (const auto& pair : settings_manager.data) {
+            ls.push_back(pair.first + ": " + pair.second);
+        }
+    }
+    draw_box("Settings", ls);
+    
+    std::string input;
+    std::cout << "Enter <key> : <value> to enter a setting, or 'save' to save settings: ";
+    std::getline(std::cin, input);
+    if (input == "save") {
+        settings_manager.save();
+    } else {
+        settings_manager.add_setting(input);
+    }
 }
 
 GearParams Ui::input_gear_params() {

@@ -2,6 +2,7 @@
 
 #include "gear_calculator.h"
 #include "user_manager.h"
+#include "settings_manager.h"
 #include "utils.h"
 
 namespace gearforge {
@@ -9,6 +10,7 @@ namespace gearforge {
 class Ui {
 private:
     UserManager& user_manager;
+    SettingsManager& settings_manager;
     GearCalculator gear_calc;
     bool running = true;
 
@@ -23,7 +25,7 @@ private:
     int select_menu(const std::vector<std::string>& options);
 
 public:
-    Ui(UserManager& um) : user_manager(um) {}
+    Ui(UserManager& um, SettingsManager& sm) : user_manager(um), settings_manager(sm) {}
     void run();
 };
 
