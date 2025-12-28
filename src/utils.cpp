@@ -1,10 +1,11 @@
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <cstdint>
+#include <filesystem>
+#include <iostream> // Only for test harness
+#include <iomanip>  // Only for test harness
+#include <vector>   // Only for test harness
+#include <cstdint>  // Only for test harness
+#define TEST_SHA256
+
 #include "utils.h"
-// Uncomment to enable test harness #define TEST_SHA256 
 
 namespace gearforge {
 namespace utils {
@@ -42,7 +43,6 @@ Sha256Hash sha256(const std::string& input) {
     while ((bytes.size() % 64) != 56) bytes.push_back(0);
     for (int i = 7; i >= 0; --i) bytes.push_back((bit_len >> (i*8)) & 0xFF);
 
-    // Initialize hash state
     hash.state = {0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,
                   0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19};
 
@@ -73,7 +73,121 @@ Sha256Hash sha256(const std::string& input) {
     return hash;
 }
 
-// Helper: convert state to hex string
+void show_progress(int progress, int total, const std::string& label) {
+    int bar_width = 50;
+    float frac = static_cast<float>(progress) / total;
+    int width = static_cast<int>(frac * bar_width);
+    std::cout << label << " [" << COLOR_GREEN;
+    for (int i = 0; i < width; ++i) std::cout << "=";
+    std::cout << ">" << COLOR_RESET;
+    for (int i = width; i < bar_width; ++i) std::cout << " ";
+    std::cout << "] " << std::setw(3) << static_cast<int>(frac * 100) << "%\r" << std::flush;
+}
+
+bool file_exists(const std::filesystem::path& p) {
+    return std::filesystem::exists(p);
+}
+
+std::vector<std::vector<std::string>> read_csv(const std::string& filename) {
+    std::vector<std::vector<std::string>> data;
+    std::ifstream file(filename);
+    if (!file) return data;
+    std::string line;
+    int row = 0;
+    show_progress(0, 100, "Loading CSV");  // Dummy progress
+    while (std::getline(file, line)) {
+        std::vector<std::string> row_data;
+        std::stringstream ss(line);
+        std::string cell;
+        while (std::getline(ss, cell, ',')) {
+            row_data.push_back(trim(cell));
+        }
+        data.push_back(row_data);
+        show_progress(++row % 100, 100, "Loading CSV");
+    }
+    std::cout << std::endl;
+    return data;
+}
+
+bool write_csv(const std::string& filename, const std::vector<std::vector<std::string>>& data) {
+    std::ofstream file(filename);
+    if (!file) return false;
+    for (const auto& row : data) {
+        for (size_t i = 0; i < row.size(); ++i) {
+            file << row[i];
+            if (i < row.size() - 1) file << ",";
+        }
+        file << "\n";
+    }
+    return true;
+}
+
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(" \t");
+    if (first == std::string::npos) return "";
+    size_t last = str.find_last_not_of(" \t");
+    return str.substr(first, last - first + 1);
+}
+
+std::string to_lower(const std::string& str) {
+    std::string lower = str;
+    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+    return lower;
+}
+
+char get_key() {
+    system("stty raw -echo");
+    char c = std::cin.get();
+    system("stty cooked echo");
+    if (c == 27) {  // Escape for arrows
+        c = std::cin.get();  // [
+        c = std::cin.get();  // A=up, B=down, etc.
+        switch (c) {
+            case 'A': return 'w';  // Map to WASD
+            case 'B': return 's';
+            case 'C': return 'd';
+            case 'D': return 'a';
+        }
+    }
+    return tolower(c);  // Support ijkl too via mapping if needed
+}
+
+std::string current_date() {
+    std::time_t now = std::time(nullptr);
+    std::tm* local = std::localtime(&now);
+    char buf[32];
+    std::strftime(buf, sizeof(buf), "%Y-%m-%d", local);
+    return buf;
+}
+
+double safe_stod(const std::string& str) {
+    try {
+        return std::stod(str);
+    } catch (const std::invalid_argument&) {
+        throw std::runtime_error("Invalid number: " + str);
+    } catch (const std::out_of_range&) {
+        throw std::runtime_error("Number out of range: " + str);
+    }
+}
+
+double safe_stod_or(const std::string& str, const double default_value) {
+    try {
+        return std::stod(str);
+    } catch (const std::invalid_argument&) {
+        return default_value;
+    } catch (const std::out_of_range&) {
+        return default_value;
+    }
+}
+
+double input_double_or(const std::string& prompt, const double default_value) {
+    std::cout << prompt;
+    std::string input;
+    std::getline(std::cin, input);
+    return utils::safe_stod_or(input, default_value);
+}
+
+// Helper: convert state to hex string (for testing)
 std::string to_hex_string(const Sha256Hash& h) {
     std::ostringstream oss;
     for (auto word : h.state) {
@@ -85,8 +199,6 @@ std::string to_hex_string(const Sha256Hash& h) {
 }  // namespace utils
 }  // namespace gearforge
 
-// ---------------------------
-// Test harness
 #ifdef TEST_SHA256
 int main() {
     std::string input;
