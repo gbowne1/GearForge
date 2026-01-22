@@ -1,0 +1,5 @@
+C:/GearForge/build/CMakeFiles/gearforge.dir
+C:/GearForge/build/CMakeFiles/tests.dir
+C:/GearForge/build/CMakeFiles/test.dir
+C:/GearForge/build/CMakeFiles/edit_cache.dir
+C:/GearForge/build/CMakeFiles/rebuild_cache.dir
